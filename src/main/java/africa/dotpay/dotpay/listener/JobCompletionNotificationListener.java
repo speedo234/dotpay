@@ -39,14 +39,14 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 
     @Override
     public void beforeJob(final JobExecution jobExecution){
-        Long dataCountInDb = userAccessLogService.getCount();
+        final Long dataCountInDb = userAccessLogService.getCount();
             logger.info("ABOUT TO START DATA UPLOAD!!! {} ",dataCountInDb);
         }
 
     @Override
     public void afterJob(final JobExecution jobExecution){
         initGlobalConstants.initGlobalConstants();
-        Long dataCountInDb = userAccessLogService.getCount();
+        final Long dataCountInDb = userAccessLogService.getCount();
         if(jobExecution.getStatus() == BatchStatus.COMPLETED ){
             logger.info("DATA UPLOAD IS DONE!!! PROCEEDING WITH DATA ANALYSIS FOR {} RECORDS"+dataCountInDb);
             logger.info("duration is => "+ GlobalConstants.duration.getDuration());

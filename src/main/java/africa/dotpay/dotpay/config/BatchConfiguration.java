@@ -56,7 +56,6 @@ public class BatchConfiguration {
         return new FlatFileItemReaderBuilder<RequestInput>()
                 .name("itemReader")
                 .resource(new ClassPathResource(accessFile))
-//                .resource(new FileSystemResource("/path/to/flat/file"))
                 .targetType(RequestInput.class)
                 .delimited()
                 .delimiter("|")

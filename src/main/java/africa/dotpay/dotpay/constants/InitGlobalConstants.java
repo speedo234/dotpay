@@ -51,7 +51,8 @@ public class InitGlobalConstants {
             initLimit(500);
         }
         else {
-            throw new UnsupportedOperationException("wrong input data for duration property | accepted values are " + Duration.HOURLY.getDuration() + " or " + Duration.DAILY.getDuration());
+            throw new UnsupportedOperationException("wrong input data for duration property | accepted values are " +
+                    Duration.HOURLY.getDuration() + " or " + Duration.DAILY.getDuration());
         }
     }
 
@@ -61,7 +62,6 @@ public class InitGlobalConstants {
             GlobalConstants.limit = this.limit;
         else
             GlobalConstants.limit = limit;
-        System.out.println("xoxoxoxoxox==>> "+GlobalConstants.limit);
     }
 
     private void initAccessFile(){
