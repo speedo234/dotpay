@@ -29,6 +29,9 @@ public class InitGlobalConstants {
     @Value("${start}")
     private String start;
 
+    @Autowired
+    GlobalConstants globalConstants;
+
 
     @Autowired
     @Qualifier("dateTimeFormatter")
@@ -36,6 +39,7 @@ public class InitGlobalConstants {
 
 
     public void initGlobalConstants() {
+//        globalConstants = new GlobalConstants();
         initDuration();
 //        initLimit();
         initAccessFile();
@@ -45,11 +49,13 @@ public class InitGlobalConstants {
 
     private void initDuration(){
         if(duration.equalsIgnoreCase(Duration.HOURLY.getTimeDuration())) {
-            GlobalConstants.duration = Duration.HOURLY;
+//            GlobalConstants.duration = Duration.HOURLY;
+            globalConstants.setDuration(Duration.HOURLY);
             initLimit(200);
         }
         else if(duration.equalsIgnoreCase(Duration.DAILY.getTimeDuration())) {
-            GlobalConstants.duration = Duration.DAILY;
+//            GlobalConstants.duration = Duration.DAILY;
+            globalConstants.setDuration(Duration.DAILY);
             initLimit(500);
         }
         else {
@@ -61,13 +67,16 @@ public class InitGlobalConstants {
 
     private void initLimit(int limit){
         if(this.limit > 0)
-            GlobalConstants.limit = this.limit;
+//            GlobalConstants.limit = this.limit;
+            globalConstants.setLimit(this.limit);
         else
-            GlobalConstants.limit = limit;
+            globalConstants.setLimit(limit);
+//            GlobalConstants.limit = limit;
     }
 
     private void initAccessFile(){
-        GlobalConstants.accessFile = accessFile;
+        globalConstants.setAccessFile(accessFile);
+//        GlobalConstants.accessFile = accessFile;
     }
 
 
@@ -75,7 +84,8 @@ public class InitGlobalConstants {
         try{
             start = start.replaceFirst("\\.", " ");
             LocalDateTime startDateTime = LocalDateTime.parse(start, dateTimeFormatter);
-            GlobalConstants.start = startDateTime;
+            globalConstants.setStart(startDateTime);
+//            GlobalConstants.start = startDateTime;
         }catch (DateTimeParseException dtpe){
             dtpe.printStackTrace();
             throw new UnsupportedOperationException("start property string could not be parsed into a LocalDateTime");
@@ -84,7 +94,8 @@ public class InitGlobalConstants {
 
     private void initEnd(){
         try{
-            GlobalConstants.end = DateUtil.getEndDateTime(GlobalConstants.start, GlobalConstants.duration.getTimeDuration());
+            globalConstants.setEnd( DateUtil.getEndDateTime(globalConstants.getStart(), globalConstants.getDuration().getTimeDuration() ));
+//            GlobalConstants.end = DateUtil.getEndDateTime(GlobalConstants.start, GlobalConstants.duration.getTimeDuration());
         }catch (DateTimeParseException dtpe){
             dtpe.printStackTrace();
             throw new UnsupportedOperationException("start property string could not be parsed into a LocalDateTime");

@@ -7,4 +7,6 @@ public interface IBlockedIpDto {
     String getIp();
     Long getRequestnumber();
 
+
+
 }

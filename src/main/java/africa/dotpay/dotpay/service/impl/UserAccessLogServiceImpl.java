@@ -2,6 +2,7 @@ package africa.dotpay.dotpay.service.impl;
 
 
 import africa.dotpay.dotpay.constants.GlobalConstants;
+import africa.dotpay.dotpay.constants.InitGlobalConstants;
 import africa.dotpay.dotpay.model.BlockedIpTable;
 import africa.dotpay.dotpay.model.IBlockedIpDto;
 import africa.dotpay.dotpay.repository.UserAccessLogRepository;
@@ -29,6 +30,9 @@ public class UserAccessLogServiceImpl implements UserAccessLogService {
     @Autowired
     BlockedIpTableService blockedIpTableService;
 
+    @Autowired
+    GlobalConstants globalConstants;
+
     @Override
     public Long getCount() {
         return userAccessLogRepository.count();
@@ -36,12 +40,19 @@ public class UserAccessLogServiceImpl implements UserAccessLogService {
 
 
     public List<BlockedIpTable> getBlockedIps(){
+
+//        new GlobalConstants().
+        System.out.println("xxxxxxxxxxxxxxxxxxx=-> "+globalConstants.getEnd().toString());
+
         List<IBlockedIpDto> iBlockedIpProjectionList = userAccessLogRepository
-                .findUserAccessLogByDateTimeAndCount( GlobalConstants.start.toString(), GlobalConstants.end.toString(), GlobalConstants.limit );
+                .findUserAccessLogByDateTimeAndCount(
+                        "2022-01-01T00:00:00",
+                        globalConstants.getEnd().toString(),
+                        globalConstants.getLimit() );
         return iBlockedIpProjectionList.stream().map( b ->
                 {
-                    logger.info("IPs with exceeded limit of {} ==> {}", GlobalConstants.limit, b.getIp());
-                         String comment = Util.generateComment(GlobalConstants.limit, b.getRequestnumber());
+                    logger.info("IPs with exceeded limit of {} ==> {}", globalConstants.getLimit(), b.getIp());
+                         String comment = Util.generateComment(globalConstants.getLimit(), b.getRequestnumber());
                          return BlockedIpTable.of(b, comment );
                 }
         ).collect(Collectors.toList());
