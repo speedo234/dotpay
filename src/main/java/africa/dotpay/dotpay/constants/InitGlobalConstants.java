@@ -1,7 +1,10 @@
 package africa.dotpay.dotpay.constants;
 
 
+import africa.dotpay.dotpay.processor.RequestItemProcessor;
 import africa.dotpay.dotpay.utility.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,9 +16,6 @@ import java.time.format.DateTimeParseException;
 
 @Component
 public class InitGlobalConstants {
-
-
-    //@Value("${duration}") String duration, @Value("${limit}") int limit, @Value("${accessFile}") String accessFile, @Value("${start}") String start
 
     @Value("${duration}")
     private String duration;
@@ -29,33 +29,29 @@ public class InitGlobalConstants {
     @Value("${start}")
     private String start;
 
-    @Autowired
-    GlobalConstants globalConstants;
-
 
     @Autowired
     @Qualifier("dateTimeFormatter")
     private DateTimeFormatter dateTimeFormatter;
 
+    static final Logger logger = LoggerFactory.getLogger(RequestItemProcessor.class);
 
     public void initGlobalConstants() {
-//        globalConstants = new GlobalConstants();
         initDuration();
 //        initLimit();
         initAccessFile();
         initStart();
         initEnd();
+        logger.info(toString());
     }
 
     private void initDuration(){
         if(duration.equalsIgnoreCase(Duration.HOURLY.getTimeDuration())) {
-//            GlobalConstants.duration = Duration.HOURLY;
-            globalConstants.setDuration(Duration.HOURLY);
+            GlobalConstants.setDuration(Duration.HOURLY);
             initLimit(200);
         }
         else if(duration.equalsIgnoreCase(Duration.DAILY.getTimeDuration())) {
-//            GlobalConstants.duration = Duration.DAILY;
-            globalConstants.setDuration(Duration.DAILY);
+            GlobalConstants.setDuration(Duration.DAILY);
             initLimit(500);
         }
         else {
@@ -67,16 +63,13 @@ public class InitGlobalConstants {
 
     private void initLimit(int limit){
         if(this.limit > 0)
-//            GlobalConstants.limit = this.limit;
-            globalConstants.setLimit(this.limit);
+            GlobalConstants.setLimit(this.limit);
         else
-            globalConstants.setLimit(limit);
-//            GlobalConstants.limit = limit;
+            GlobalConstants.setLimit(limit);
     }
 
     private void initAccessFile(){
-        globalConstants.setAccessFile(accessFile);
-//        GlobalConstants.accessFile = accessFile;
+        GlobalConstants.setAccessFile(accessFile);
     }
 
 
@@ -84,8 +77,7 @@ public class InitGlobalConstants {
         try{
             start = start.replaceFirst("\\.", " ");
             LocalDateTime startDateTime = LocalDateTime.parse(start, dateTimeFormatter);
-            globalConstants.setStart(startDateTime);
-//            GlobalConstants.start = startDateTime;
+            GlobalConstants.setStart(startDateTime);
         }catch (DateTimeParseException dtpe){
             dtpe.printStackTrace();
             throw new UnsupportedOperationException("start property string could not be parsed into a LocalDateTime");
@@ -94,24 +86,22 @@ public class InitGlobalConstants {
 
     private void initEnd(){
         try{
-            globalConstants.setEnd( DateUtil.getEndDateTime(globalConstants.getStart(), globalConstants.getDuration().getTimeDuration() ));
-//            GlobalConstants.end = DateUtil.getEndDateTime(GlobalConstants.start, GlobalConstants.duration.getTimeDuration());
+            GlobalConstants.setEnd( DateUtil.getEndDateTime(GlobalConstants.getStart(), GlobalConstants.getDuration().getTimeDuration() ));
         }catch (DateTimeParseException dtpe){
             dtpe.printStackTrace();
             throw new UnsupportedOperationException("start property string could not be parsed into a LocalDateTime");
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "InitGlobalConstants{" +
+                "duration='" + duration + '\'' +
+                ", limit=" + limit +
+                ", accessFile='" + accessFile + '\'' +
+                ", start='" + start + '\'' +
+                ", end='" + GlobalConstants.getEnd().toString() + '\'' +
+                '}';
+    }
 }
-
-
-
-
-
-
-
-
-
-
 
