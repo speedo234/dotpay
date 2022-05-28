@@ -1,6 +1,7 @@
 package africa.dotpay.dotpay.constants;
 
 
+import africa.dotpay.dotpay.utility.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +40,7 @@ public class InitGlobalConstants {
 //        initLimit();
         initAccessFile();
         initStart();
+        initEnd();
     }
 
     private void initDuration(){
@@ -78,7 +80,15 @@ public class InitGlobalConstants {
             dtpe.printStackTrace();
             throw new UnsupportedOperationException("start property string could not be parsed into a LocalDateTime");
         }
+    }
 
+    private void initEnd(){
+        try{
+            GlobalConstants.end = DateUtil.getEndDateTime(GlobalConstants.start, GlobalConstants.duration.getTimeDuration());
+        }catch (DateTimeParseException dtpe){
+            dtpe.printStackTrace();
+            throw new UnsupportedOperationException("start property string could not be parsed into a LocalDateTime");
+        }
     }
 
 

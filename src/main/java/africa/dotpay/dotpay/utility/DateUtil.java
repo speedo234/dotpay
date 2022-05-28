@@ -15,20 +15,17 @@ public class DateUtil {
     private DateUtil() {
     }
 
-    public static LocalDateTime getEndDateTime(LocalDateTime startDateTime, final String duration){
+    public static LocalDateTime getEndDateTime(final LocalDateTime startDateTime, final String duration){
 
         LocalDateTime endDateTime = null;
 
-        if(duration.equalsIgnoreCase(Duration.HOURLY.getTimeDuration())){
-            logger.info("::1::{} triggered", Duration.HOURLY.getTimeDuration());
+        if(duration.equalsIgnoreCase(Duration.HOURLY.getTimeDuration()))
             endDateTime = startDateTime.plusHours( Duration.HOURLY.getAddedHours() );
-        }
-        else if(duration.equalsIgnoreCase(Duration.DAILY.getTimeDuration())){
-            logger.info("::2:{} triggered", Duration.DAILY.getTimeDuration());
+        else if(duration.equalsIgnoreCase(Duration.DAILY.getTimeDuration()))
             endDateTime = startDateTime.plusHours( Duration.DAILY.getAddedHours() );
-        }else{
+        else
             logger.info(":::duration entered was not {} or {}", Duration.HOURLY.getTimeDuration(), Duration.DAILY.getTimeDuration());
-        }
+
         return endDateTime;
     }
 

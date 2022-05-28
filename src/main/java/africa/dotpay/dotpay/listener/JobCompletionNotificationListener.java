@@ -1,9 +1,6 @@
 package africa.dotpay.dotpay.listener;
 
 
-
-import africa.dotpay.dotpay.constants.Duration;
-import africa.dotpay.dotpay.constants.GlobalConstants;
 import africa.dotpay.dotpay.constants.InitGlobalConstants;
 import africa.dotpay.dotpay.model.BlockedIpTable;
 import africa.dotpay.dotpay.service.BlockedIpTableService;
@@ -14,12 +11,9 @@ import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 
 @Component

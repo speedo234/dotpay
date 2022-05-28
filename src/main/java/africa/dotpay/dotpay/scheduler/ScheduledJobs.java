@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@Component
-@AllArgsConstructor
-@EnableScheduling
+//@Component
+//@AllArgsConstructor
+//@EnableScheduling
 public class ScheduledJobs {
 //    private final JobLauncher jobLauncher;
 //
