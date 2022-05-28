@@ -13,6 +13,6 @@ public interface BlockedIpTableService {
 
     public void saveBlockedIpList(List<BlockedIpTable> blockedIpTableList);
 
-    public void processHashMapToDb(Map<String, List<BlockedIpTable>> checkBlockedIpResponse);
+    public void processIpExceededLimitsToDb(Map<String, List<BlockedIpTable>> blockedIpTableMap);
 
 }

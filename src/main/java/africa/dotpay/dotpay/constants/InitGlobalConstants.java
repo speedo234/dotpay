@@ -42,17 +42,17 @@ public class InitGlobalConstants {
     }
 
     private void initDuration(){
-        if(duration.equalsIgnoreCase(Duration.HOURLY.getDuration())) {
+        if(duration.equalsIgnoreCase(Duration.HOURLY.getTimeDuration())) {
             GlobalConstants.duration = Duration.HOURLY;
             initLimit(200);
         }
-        else if(duration.equalsIgnoreCase(Duration.DAILY.getDuration())) {
+        else if(duration.equalsIgnoreCase(Duration.DAILY.getTimeDuration())) {
             GlobalConstants.duration = Duration.DAILY;
             initLimit(500);
         }
         else {
             throw new UnsupportedOperationException("wrong input data for duration property | accepted values are " +
-                    Duration.HOURLY.getDuration() + " or " + Duration.DAILY.getDuration());
+                    Duration.HOURLY.getTimeDuration() + " or " + Duration.DAILY.getTimeDuration());
         }
     }
 

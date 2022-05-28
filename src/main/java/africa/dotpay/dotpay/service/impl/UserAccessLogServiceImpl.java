@@ -38,7 +38,7 @@ public class UserAccessLogServiceImpl implements UserAccessLogService {
 
 
     public Map<String, List<BlockedIpTable> > getIpExceededLimits(){
-        LocalDateTime endDateTime = DateUtil.getEndDateTime(GlobalConstants.start, GlobalConstants.duration.getDuration());
+        LocalDateTime endDateTime = DateUtil.getEndDateTime(GlobalConstants.start, GlobalConstants.duration.getTimeDuration());
         List<UserAccessLog> userAccessLogList = userAccessLogRepository.findUserAccessLogByDateTimeBetween(GlobalConstants.start.toString(), endDateTime.toString());
         logger.info("userAccessLogList.size() => {} ", userAccessLogList.size());
 

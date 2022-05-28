@@ -10,6 +10,6 @@ public enum Duration {
     HOURLY("hourly", 1),
     DAILY("daily", 24);
 
-    String duration;
+    String timeDuration;
     int addedHours;
 }

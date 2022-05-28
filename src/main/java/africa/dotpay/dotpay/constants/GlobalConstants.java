@@ -18,5 +18,6 @@ public class GlobalConstants {
     public static String accessFile;
     public static LocalDateTime start;
 
-
+    private GlobalConstants() {
+    }
 }

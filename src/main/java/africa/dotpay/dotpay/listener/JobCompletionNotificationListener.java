@@ -48,10 +48,10 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
         initGlobalConstants.initGlobalConstants();
         final Long dataCountInDb = userAccessLogService.getCount();
         if(jobExecution.getStatus() == BatchStatus.COMPLETED ){
-            logger.info("DATA UPLOAD IS DONE!!! PROCEEDING WITH DATA ANALYSIS FOR {} RECORDS"+dataCountInDb);
-            logger.info("duration is => "+ GlobalConstants.duration.getDuration());
+            logger.info("DATA UPLOAD IS DONE!!! PROCEEDING WITH DATA ANALYSIS FOR {} RECORDS", dataCountInDb);
+            logger.info("duration is => {} ", GlobalConstants.duration.getTimeDuration());
             final Map<String, List<BlockedIpTable>> ipExceededLimits = userAccessLogService.getIpExceededLimits();
-            blockedIpTableService.processHashMapToDb( ipExceededLimits );
+            blockedIpTableService.processIpExceededLimitsToDb( ipExceededLimits );
         }
     }
 

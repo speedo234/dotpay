@@ -73,7 +73,7 @@ public class BatchConfiguration {
 
     @Bean
     public JdbcBatchItemWriter<UserAccessLog> writer(){//write data to database
-        JdbcBatchItemWriter<UserAccessLog> writer = new JdbcBatchItemWriter<UserAccessLog>();
+        JdbcBatchItemWriter<UserAccessLog> writer = new JdbcBatchItemWriter<>();
         writer.setItemSqlParameterSourceProvider(getBeanPropertyItemSqlParameterSourceProvider());
         writer.setSql("INSERT INTO USER_ACCESS_LOG (date_time, ip, request, status, user_agent) values(:dateTime, :ip, :request, :status, :userAgent)");
         writer.setDataSource(dataSource);
