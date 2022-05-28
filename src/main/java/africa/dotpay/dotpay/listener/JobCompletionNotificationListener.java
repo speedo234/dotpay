@@ -42,6 +42,7 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
         logger.info("================================================================");
         logger.info("==========================JOB INITIALIZING=======================");
         logger.info("=================================================================");
+
         logger.info("DB CLEAN UP!!! ");
         userAccessLogService.clearUserAccessLog();
         blockedIpTableService.clearBlockedIp();
@@ -57,6 +58,7 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
             logger.info("FINISHED LOADING {} RECORDS TO UserAccessLog Table", dataCountInDb);
             final List<BlockedIpTable> blockedIpTableList = userAccessLogService.getBlockedIps();
             blockedIpTableService.saveBlockedIpList( blockedIpTableList );
+
             logger.info("================================================================");
             logger.info("==========================JOB FINISHED==========================");
             logger.info("================================================================");

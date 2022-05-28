@@ -40,27 +40,24 @@ public class UserAccessLogServiceImpl implements UserAccessLogService {
 
     public List<BlockedIpTable> getBlockedIps(){
         LocalDateTime endDateTime = DateUtil.getEndDateTime(GlobalConstants.start, GlobalConstants.duration.getTimeDuration());
-        List<UserAccessLog> userAccessLogList = userAccessLogRepository.findUserAccessLogByDateTimeBetween(GlobalConstants.start.toString(), endDateTime.toString()/*, GlobalConstants.limit*/);
-        logger.info("userAccessLogList.size() => {} ", userAccessLogList.size());
+//        List<UserAccessLog> userAccessLogList = userAccessLogRepository.findUserAccessLogByDateTimeBetween(GlobalConstants.start.toString(), endDateTime.toString()/*, GlobalConstants.limit*/);
+//        logger.info("userAccessLogList.size() => {} ", userAccessLogList.size());
 
         logger.info("GlobalConstants.start=-> {} ", GlobalConstants.start);
         logger.info("endDateTime=-> {} ", endDateTime);
         logger.info("=======1111======================================================================================================================================================");
-//        logger.info("userAccessLogList2.size() => {} ", userAccessLogRepository.findUserAccessLogByDateTimeBetween2(GlobalConstants.start.toString(), endDateTime.toString(), GlobalConstants.limit) );
         List<IBlockedIpDto> iBlockedIpProjectionList = userAccessLogRepository.projectiongetMyDataForMe( GlobalConstants.start.toString(), endDateTime.toString(), GlobalConstants.limit );
         logger.info("iBlockedIpProjectionList.size()=-> {} ", iBlockedIpProjectionList.size());
+        logger.info("iBlockedIpProjectionList.size()=-> {} ", iBlockedIpProjectionList.get(0).getRequestnumber());
         logger.info("=========2222====================================================================================================================================================");
 
         String comment = Util.generateComment(GlobalConstants.limit);
 
+//        List<BlockedIpTable> blockedIpTableList = iBlockedIpProjectionList.stream().map( b -> BlockedIpTable.of(b, comment ) ).collect(Collectors.toList());
+
         List<BlockedIpTable> blockedIpTableList = iBlockedIpProjectionList.stream().map( b -> BlockedIpTable.of(b, comment ) ).collect(Collectors.toList());
 
         return blockedIpTableList;
-
-//        Set<UserAccessLog> distinctUserAccessLogHashSet = new HashSet<>(userAccessLogList);
-//        logger.info("distinctUserAccessLogHashSet.size() => {} ", distinctUserAccessLogHashSet.size());
-
-//        return checkBlockedIp( userAccessLogList, distinctUserAccessLogHashSet);//abstracted into another method for readability. methods should not be too long
     }
 
     @Override

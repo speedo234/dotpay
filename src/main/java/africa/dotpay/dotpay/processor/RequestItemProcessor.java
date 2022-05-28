@@ -37,7 +37,6 @@ public class RequestItemProcessor implements ItemProcessor<RequestInput, UserAcc
 
         final UserAccessLog transformedRequest = new UserAccessLog(dateTime, ip, req, status, userAgent);
         counter++;
-//        logger.info("PLEASE HOLD ON! DATA UPLOAD STILL IN PROGRESS... YOU WILL BE NOTIFIED WHEN DATA UPLOAD IS DONE... ");
         logger.info("loaded {} records and counting...",counter);
 
         return transformedRequest;

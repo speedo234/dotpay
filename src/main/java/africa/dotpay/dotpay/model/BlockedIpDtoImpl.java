@@ -11,7 +11,7 @@ public class BlockedIpDtoImpl implements IBlockedIpDto {
     }
 
     @Override
-    public Long getRequestNumber() {
+    public Long getRequestnumber() {
         return null;
     }
 }

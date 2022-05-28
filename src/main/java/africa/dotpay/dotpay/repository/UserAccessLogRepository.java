@@ -24,7 +24,7 @@ public interface UserAccessLogRepository extends JpaRepository<UserAccessLog, Lo
 //    List<UserAccessLog> findUserAccessLogByDateTimeBetween(String start, String end, int count);
 
 
-    @Query(value="SELECT IP AS IP, COUNT(IP) AS REQUEST_NUMBER "
+    @Query(value="SELECT IP AS IP, COUNT(IP) AS REQUESTNUMBER "
             + "FROM USER_ACCESS_LOG u where date_time between :start and :end GROUP BY IP HAVING COUNT(IP) > :count ", nativeQuery = true)
     List<IBlockedIpDto> projectiongetMyDataForMe(String start, String end, int count);
 

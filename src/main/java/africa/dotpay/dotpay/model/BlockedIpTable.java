@@ -58,7 +58,7 @@ public class BlockedIpTable implements Serializable {
 
 
     public static BlockedIpTable of(IBlockedIpDto iBlockedIpDto, String comment){
-        return new BlockedIpTable(iBlockedIpDto.getIp(), iBlockedIpDto.getRequestNumber(), comment);
+        return new BlockedIpTable(iBlockedIpDto.getIp(), iBlockedIpDto.getRequestnumber(), comment);
     }
 
 
