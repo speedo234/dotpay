@@ -8,11 +8,12 @@ import java.util.Map;
 
 public interface BlockedIpTableService {
 
-
     public void saveBlockedIp(BlockedIpTable blockedIpTable);
 
     public void saveBlockedIpList(List<BlockedIpTable> blockedIpTableList);
 
-    public void processIpExceededLimitsToDb(Map<String, List<BlockedIpTable>> blockedIpTableMap);
+    public void clearBlockedIp();
+
+    public Long getCount();
 
 }

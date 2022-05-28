@@ -39,8 +39,14 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 
     @Override
     public void beforeJob(final JobExecution jobExecution){
-        final Long dataCountInDb = userAccessLogService.getCount();
-            logger.info("ABOUT TO START DATA UPLOAD!!! {} ",dataCountInDb);
+        logger.info("================================================================");
+        logger.info("==========================JOB INITIALIZING=======================");
+        logger.info("=================================================================");
+        logger.info("DB CLEAN UP!!! ");
+        userAccessLogService.clearUserAccessLog();
+        blockedIpTableService.clearBlockedIp();
+        logger.info("CLEAN UP SUCCESSFUL!!! ");
+        logger.info("JOB FIRING UP!!! ");
         }
 
     @Override
@@ -48,10 +54,12 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
         initGlobalConstants.initGlobalConstants();
         final Long dataCountInDb = userAccessLogService.getCount();
         if(jobExecution.getStatus() == BatchStatus.COMPLETED ){
-            logger.info("DATA UPLOAD IS DONE!!! PROCEEDING WITH DATA ANALYSIS FOR {} RECORDS", dataCountInDb);
-            logger.info("duration is => {} ", GlobalConstants.duration.getTimeDuration());
-            final Map<String, List<BlockedIpTable>> ipExceededLimits = userAccessLogService.getIpExceededLimits();
-            blockedIpTableService.processIpExceededLimitsToDb( ipExceededLimits );
+            logger.info("FINISHED LOADING {} RECORDS TO UserAccessLog Table", dataCountInDb);
+            final List<BlockedIpTable> blockedIpTableList = userAccessLogService.getBlockedIps();
+            blockedIpTableService.saveBlockedIpList( blockedIpTableList );
+            logger.info("================================================================");
+            logger.info("==========================JOB FINISHED==========================");
+            logger.info("================================================================");
         }
     }
 

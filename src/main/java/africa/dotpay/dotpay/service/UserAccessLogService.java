@@ -11,6 +11,8 @@ public interface UserAccessLogService {
 
     public Long getCount();
 
-    public Map<String, List<BlockedIpTable>> getIpExceededLimits();
+    public List<BlockedIpTable> getBlockedIps();
+
+    public void clearUserAccessLog();
 
 }
