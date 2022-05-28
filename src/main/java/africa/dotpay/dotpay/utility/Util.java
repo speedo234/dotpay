@@ -7,10 +7,12 @@ public class Util {
     private Util() {
     }
 
-    public static String generateComment(int requestLimit){
+    public static String generateComment(int requestLimit, Long requestNumber){
         return new StringBuilder()
-                .append("exceeded limit of requests which is ")
-                .append(requestLimit).toString();
+                .append("blocked because request exceeded limit of ")
+                .append(requestLimit)
+                .append(" with a total request of ")
+                .append( requestNumber ).toString();
     }
 
 

@@ -40,23 +40,15 @@ public class UserAccessLogServiceImpl implements UserAccessLogService {
 
     public List<BlockedIpTable> getBlockedIps(){
         LocalDateTime endDateTime = DateUtil.getEndDateTime(GlobalConstants.start, GlobalConstants.duration.getTimeDuration());
-//        List<UserAccessLog> userAccessLogList = userAccessLogRepository.findUserAccessLogByDateTimeBetween(GlobalConstants.start.toString(), endDateTime.toString()/*, GlobalConstants.limit*/);
-//        logger.info("userAccessLogList.size() => {} ", userAccessLogList.size());
+        List<IBlockedIpDto> iBlockedIpProjectionList = userAccessLogRepository.findUserAccessLogByDateTimeAndCount( GlobalConstants.start.toString(), endDateTime.toString(), GlobalConstants.limit );
+        List<BlockedIpTable> blockedIpTableList = iBlockedIpProjectionList.stream().map( b ->
+                {
+                    logger.info("IPs with exceeded limit of {} ==> {}", GlobalConstants.limit, b.getIp());
+                         String comment = Util.generateComment(GlobalConstants.limit, b.getRequestnumber());
+                         return BlockedIpTable.of(b, comment );
+                }
 
-        logger.info("GlobalConstants.start=-> {} ", GlobalConstants.start);
-        logger.info("endDateTime=-> {} ", endDateTime);
-        logger.info("=======1111======================================================================================================================================================");
-        List<IBlockedIpDto> iBlockedIpProjectionList = userAccessLogRepository.projectiongetMyDataForMe( GlobalConstants.start.toString(), endDateTime.toString(), GlobalConstants.limit );
-        logger.info("iBlockedIpProjectionList.size()=-> {} ", iBlockedIpProjectionList.size());
-        logger.info("iBlockedIpProjectionList.size()=-> {} ", iBlockedIpProjectionList.get(0).getRequestnumber());
-        logger.info("=========2222====================================================================================================================================================");
-
-        String comment = Util.generateComment(GlobalConstants.limit);
-
-//        List<BlockedIpTable> blockedIpTableList = iBlockedIpProjectionList.stream().map( b -> BlockedIpTable.of(b, comment ) ).collect(Collectors.toList());
-
-        List<BlockedIpTable> blockedIpTableList = iBlockedIpProjectionList.stream().map( b -> BlockedIpTable.of(b, comment ) ).collect(Collectors.toList());
-
+        ).collect(Collectors.toList());
         return blockedIpTableList;
     }
 
