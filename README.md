@@ -19,10 +19,10 @@ java -jar dotpay-0.0.1-SNAPSHOT.jar --duration=hourly --limit=100 --start=2022-0
 To specify the port add the server.port argument like below:
 java -jar dotpay-0.0.1-SNAPSHOT.jar --server.port=8084 --duration=hourly --limit=100 --start=2022-01-01.00:00:11 --accessFile=user_access.txt
 
-dotpay-0.0.1-SNAPSHOT.jar => the generated jar file to run
+  dotpay-0.0.1-SNAPSHOT.jar => the generated jar file to run
 --server.port => specify the port for the application to run on
 --start => specify the start date and time to query the user_access_log table
---accessFile => for portability the file should be placed inside the resource folder and only the file name specified for this argument.
+--accessFile => specify the path to the file containing the data to be loaded into the db.
 --duration => specifies if data should be queried for 1 hour span or for 1 day span.
 
 

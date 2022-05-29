@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 
 import javax.sql.DataSource;
 
@@ -55,7 +56,8 @@ public class BatchConfiguration {
         String[] columns = { "date_time", "ip", "request", "status", "user_agent" };
         return new FlatFileItemReaderBuilder<RequestInput>()
                 .name("itemReader")
-                .resource(new ClassPathResource(accessFile))
+//                .resource(new ClassPathResource(accessFile))
+                .resource(new FileSystemResource(accessFile))
                 .targetType(RequestInput.class)
                 .delimited()
                 .delimiter("|")
