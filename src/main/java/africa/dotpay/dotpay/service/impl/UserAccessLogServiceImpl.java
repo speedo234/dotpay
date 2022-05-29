@@ -40,7 +40,6 @@ public class UserAccessLogServiceImpl implements UserAccessLogService {
 
 
     public List<BlockedIpTable> getBlockedIps(){
-
         List<IBlockedIpDto> iBlockedIpProjectionList = userAccessLogRepository
                 .findUserAccessLogByDateTimeAndCount(
                         GlobalConstants.getStart().toString(),

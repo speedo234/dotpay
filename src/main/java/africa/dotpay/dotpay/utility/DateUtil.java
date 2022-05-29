@@ -16,9 +16,7 @@ public class DateUtil {
     }
 
     public static LocalDateTime getEndDateTime(final LocalDateTime startDateTime, final String duration){
-
         LocalDateTime endDateTime = null;
-
         if(duration.equalsIgnoreCase(Duration.HOURLY.getTimeDuration()))
             endDateTime = startDateTime.plusHours( Duration.HOURLY.getAddedHours() );
         else if(duration.equalsIgnoreCase(Duration.DAILY.getTimeDuration()))

@@ -60,25 +60,14 @@ class UserAccessLogServiceImplTest {
 
     @Test
     void getBlockedIps() {
-        String start = "2022-01-01T00:00:00";
-        String end = "2022-01-01T00:00:00";
-        int limit = 100;
-
         IBlockedIpDto iBlockedIpDto = new BlockedIpDtoImpl();
         ((BlockedIpDtoImpl) iBlockedIpDto).setIp("192.168.129.191");
         ((BlockedIpDtoImpl) iBlockedIpDto).setRequestnumber(444L);
         List<IBlockedIpDto> iBlockedIpDtoList = Arrays.asList(iBlockedIpDto, iBlockedIpDto);
-
-//        when( globalConstants.start.toString() ).thenReturn( start );
-//        when( globalConstants.end.toString() ).thenReturn( end );
-//        when( globalConstants.limit ).thenReturn( limit );
-        when( userAccessLogRepository.findUserAccessLogByDateTimeAndCount("2022-01-01T00:00:00", "2022-01-01T01:00:00", 100) ).thenReturn( iBlockedIpDtoList );
+        when( userAccessLogRepository.findUserAccessLogByDateTimeAndCount(Mockito.anyString(), Mockito.anyString(), Mockito.anyInt()) ).thenReturn( iBlockedIpDtoList );
         List<BlockedIpTable> actual = userAccessLogService.getBlockedIps();
-
-        System.out.println("==actual.siz=>>>> "+actual.size());
-
-//        assertThat( actual.size() ).isGreaterThan( 0 );
-//        assertThat( actual ).isNotNull();
+        assertThat( actual.size() ).isEqualTo( 2 );
+        assertThat( actual ).isNotNull();
     }
 
     @Test
