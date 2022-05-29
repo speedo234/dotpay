@@ -96,10 +96,10 @@ public class InitGlobalConstants {
     @Override
     public String toString() {
         return "InitGlobalConstants{" +
-                "duration='" + duration + '\'' +
-                ", limit=" + limit +
-                ", accessFile='" + accessFile + '\'' +
-                ", start='" + start + '\'' +
+                "duration='" + GlobalConstants.getDuration().getTimeDuration() + '\'' +
+                ", limit=" + GlobalConstants.getLimit() +
+                ", accessFile='" + GlobalConstants.getAccessFile() + '\'' +
+                ", start='" + GlobalConstants.getStart() + '\'' +
                 ", end='" + GlobalConstants.getEnd().toString() + '\'' +
                 '}';
     }

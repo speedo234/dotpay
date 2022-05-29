@@ -2,7 +2,6 @@ package africa.dotpay.dotpay.service.impl;
 
 
 import africa.dotpay.dotpay.constants.GlobalConstants;
-import africa.dotpay.dotpay.constants.InitGlobalConstants;
 import africa.dotpay.dotpay.model.BlockedIpTable;
 import africa.dotpay.dotpay.model.IBlockedIpDto;
 import africa.dotpay.dotpay.repository.UserAccessLogRepository;
